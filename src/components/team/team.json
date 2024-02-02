@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_team_teams",
+  "info": {
+    "displayName": "Team",
+    "icon": "alien",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Role": {
+      "type": "string"
+    },
+    "Role_description": {
+      "type": "text"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

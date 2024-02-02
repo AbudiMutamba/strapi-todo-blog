@@ -815,6 +815,42 @@ export interface ApiAboutAbout extends Schema.SingleType {
   };
 }
 
+export interface ApiCategoryCategory extends Schema.CollectionType {
+  collectionName: 'categories';
+  info: {
+    singularName: 'category';
+    pluralName: 'categories';
+    displayName: 'Categories';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Name: Attribute.String;
+    todos: Attribute.Relation<
+      'api::category.category',
+      'manyToMany',
+      'api::todo.todo'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::category.category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::category.category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiTodoTodo extends Schema.CollectionType {
   collectionName: 'todos';
   info: {
@@ -830,6 +866,12 @@ export interface ApiTodoTodo extends Schema.CollectionType {
     Title: Attribute.String;
     Description: Attribute.Text;
     Attachments: Attribute.Media;
+    categories: Attribute.Relation<
+      'api::todo.todo',
+      'manyToMany',
+      'api::category.category'
+    >;
+    Team: Attribute.Component<'team.team', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -859,6 +901,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
       'api::about.about': ApiAboutAbout;
+      'api::category.category': ApiCategoryCategory;
       'api::todo.todo': ApiTodoTodo;
     }
   }

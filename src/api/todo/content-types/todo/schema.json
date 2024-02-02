@@ -27,6 +27,17 @@
         "files",
         "videos"
       ]
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::category.category",
+      "inversedBy": "todos"
+    },
+    "Team": {
+      "type": "component",
+      "repeatable": true,
+      "component": "team.team"
     }
   }
 }
